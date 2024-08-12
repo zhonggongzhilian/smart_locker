@@ -18,6 +18,23 @@ def index(request):
     return HttpResponse(html_template.render(context, request))
 
 
+def home(request):
+    context = {'segment': 'index'}
+    html_template = loader.get_template('home/home.html')
+    return HttpResponse(html_template.render(context, request))
+
+
+def storage(request):
+    context = {'segment': 'index'}
+    html_template = loader.get_template('home/storage.html')
+    return HttpResponse(html_template.render(context, request))
+
+def mine(request):
+    context = {'segment': 'index'}
+    html_template = loader.get_template('home/mine.html')
+    return HttpResponse(html_template.render(context, request))
+
+
 @login_required(login_url="/login/")
 def pages(request):
     context = {}
