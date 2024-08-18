@@ -1,23 +1,125 @@
-<!-- home/mine.html -->
+<!-- home/storage.html -->
 {% extends 'layouts/base.html' %}
 
 {% block title %} 首页 {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
-
+<style>
+    .btn-rounded {
+        border-radius: 50px; /* 最大圆角效果 */
+    }
+    .image-preview {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+    .image-preview img {
+        max-width: 100px;
+        max-height: 100px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        object-fit: cover;
+    }
+    .image-preview .add-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+        border: 2px dashed #ccc;
+        cursor: pointer;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        font-size: 30px;
+        color: #666;
+    }
+    .add-image i {
+        font-size: 50px;
+    }
+</style>
 {% endblock stylesheets %}
 
 {% block content %}
 <!-- Page content -->
 <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="POST" class="form-inline" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group mb-3 w-100">
+                    <label for="storage_time" class="col-form-label col-sm-3">寄存时间</label>
+                    <input type="datetime-local" class="form-control col-sm-9" id="storage_time" name="storage_time">
+                </div>
+                <div class="form-group mb-3 w-100">
+                    <label for="luggage_name" class="col-form-label col-sm-3">行李名称</label>
+                    <input type="text" class="form-control col-sm-9" id="luggage_name" name="luggage_name" placeholder="请输入行李名称" required>
+                </div>
+                <div class="form-group mb-3 w-100">
+                    <label for="luggage_size" class="col-form-label col-sm-3">行李规格</label>
+                    <input type="text" class="form-control col-sm-9" id="luggage_size" name="luggage_size" placeholder="请输入行李规格" required>
+                </div>
+                <div class="form-group mb-3 w-100">
+                    <label for="luggage_description" class="col-form-label col-sm-3">行李描述</label>
+                    <textarea class="form-control col-sm-9" id="luggage_description" name="luggage_description" rows="3" placeholder="请输入行李描述"></textarea>
+                </div>
+                <div class="form-group mb-3 w-100">
+                    <label class="col-form-label col-sm-3">添加图片</label>
+                </div>
+                <div class="image-preview" id="image-preview">
+                    <div class="add-image" id="add-image">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block btn-rounded mt-3">提交</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
+<script>
+    // 设置寄存时间为当前时间
+    window.onload = function() {
+        const storageTimeInput = document.getElementById('storage_time');
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        const nowStr = now.toISOString().substring(0, 16);
+        storageTimeInput.value = nowStr;
+    };
 
-<script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
-<script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+    const imagePreview = document.getElementById('image-preview');
+    const addImageDiv = document.getElementById('add-image');
 
+    addImageDiv.addEventListener('click', function() {
+        const imageInput = document.createElement('input');
+        imageInput.type = 'file';
+        imageInput.accept = 'image/*';
+        imageInput.multiple = true;
+        imageInput.style.display = 'none';
+
+        imageInput.addEventListener('change', function() {
+            const files = this.files;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    imagePreview.insertBefore(img, addImageDiv);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.body.appendChild(imageInput);
+        imageInput.click();
+        document.body.removeChild(imageInput);
+    });
+</script>
 {% endblock javascripts %}
