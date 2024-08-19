@@ -1,0 +1,21 @@
+<!-- home/success.html -->
+{% extends 'layouts/base.html' %}
+
+{% block title %} 提交成功 {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-success" role="alert">
+                您的行李信息已成功提交！
+            </div>
+            <a href="{% url 'storage' %}" class="btn btn-primary">返回寄存页面</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}{% endblock javascripts %}

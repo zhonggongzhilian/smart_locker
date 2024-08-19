@@ -65,6 +65,7 @@
                 </div>
                 <div class="form-group mb-3 w-100">
                     <label class="col-form-label col-sm-3">添加图片</label>
+                    <input type="file" id="image-input" name="images" accept="image/*" multiple style="display: none;">
                 </div>
                 <div class="image-preview" id="image-preview">
                     <div class="add-image" id="add-image">
@@ -92,34 +93,27 @@
 
     const imagePreview = document.getElementById('image-preview');
     const addImageDiv = document.getElementById('add-image');
+    const imageInput = document.getElementById('image-input');
 
     addImageDiv.addEventListener('click', function() {
-        const imageInput = document.createElement('input');
-        imageInput.type = 'file';
-        imageInput.accept = 'image/*';
-        imageInput.multiple = true;
-        imageInput.style.display = 'none';
-
-        imageInput.addEventListener('change', function() {
-            const files = this.files;
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    imagePreview.insertBefore(img, addImageDiv);
-                }
-
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.body.appendChild(imageInput);
         imageInput.click();
-        document.body.removeChild(imageInput);
+    });
+
+    imageInput.addEventListener('change', function() {
+        const files = this.files;
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                imagePreview.insertBefore(img, addImageDiv);
+            }
+
+            reader.readAsDataURL(file);
+        }
     });
 </script>
 {% endblock javascripts %}

@@ -121,7 +121,7 @@
     <!-- 用户信息卡片 -->
     <div class="user-card">
         <img src="/static/assets/img/users/admin-logo.jpg" alt="User Avatar">
-        <h2>李颜君</h2>
+        <h2>{{ request.user.username }}</h2>
         <!-- 编辑资料按钮 -->
         <a href="#" class="edit-button">编辑资料</a>
     </div>
