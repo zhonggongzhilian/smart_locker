@@ -25,6 +25,14 @@
   {% block stylesheets %}{% endblock stylesheets %}
 
   <style>
+    body {
+      padding-bottom: 80px; /* Ensure there's space for the footer */
+    }
+
+    .main-content {
+      padding-bottom: 80px; /* Ensure content isn't covered by the footer */
+    }
+
     .footer {
       background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
       backdrop-filter: blur(10px); /* Apply blur effect for the glass look */

@@ -24,7 +24,7 @@ def login_view(request):
                 login(request, user)
                 return redirect("/")
             else:
-                msg = 'Invalid credentials'
+                msg = '用户名或密码错误！'
         else:
             msg = 'Error validating the form'
 
@@ -43,7 +43,7 @@ def register_user(request):
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
 
-            msg = 'User created - please <a href="/login">login</a>.'
+            msg = '恭喜！用户创建成功！请 <a href="/login">登录</a>.'
             success = True
 
             # return redirect("/login/")
