@@ -1,0 +1,68 @@
+{% extends 'layouts/base-manage.html' %}
+
+{% block title %} 锁柜列表 {% endblock title %}
+
+{% block content %}
+
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">锁柜列表</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">所有锁柜信息</h3>
+                </div>
+                <!-- Card body -->
+                <div class="card-body">
+                    {% if lockers %}
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>锁柜编号</th>
+                                    <th>锁柜尺寸</th>
+                                    <th>状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for locker in lockers %}
+                                <tr>
+                                    <td>{{ locker.code }}</td>
+                                    <td>{{ locker.size }}</td>
+                                    <td>
+                                        {% if locker.status == '0' %}
+                                            空闲
+                                        {% elif locker.status == '1' %}
+                                            已占用
+                                        {% elif locker.status == '2' %}
+                                            维修中
+                                        {% else %}
+                                            未知状态
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="text-center">没有锁柜信息。</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

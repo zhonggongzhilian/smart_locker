@@ -7,7 +7,7 @@
   <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-argon">
   
   <title>
-    中工智联 ｜ 智能锁柜
+    中工智联 ｜ 机场行李寄存小程序
   </title>
 
   <link rel="icon" href="/static/assets/img/brand/favicon.png" type="image/png">
@@ -26,34 +26,10 @@
 
 <body class="bg-default">
 
+    {% include "includes/sidenav.html" %}
   <div class="main-content">
 
-    {% include "includes/navigation-fullscreen.html" %}
-    {% include "includes/sidenav.html" %}
 
-    <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-8">
-      <div class="container">
-        <div class="header-body text-center mb-7">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">
-                <a target="_blank" class="text-white"
-                   href="">中工智联</a>
-              </h1>
-              <p class="text-lead text-light">
-                机场行李寄存小程序
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="separator separator-bottom separator-skew zindex-100">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-        </svg>
-      </div>
-    </div>
     
     {% block content %}{% endblock content %}
 
