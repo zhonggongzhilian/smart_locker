@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
@@ -9,6 +10,7 @@ class Luggage(models.Model):
     luggage_size = models.CharField(max_length=255)
     luggage_description = models.TextField(blank=True, null=True)
     images = models.ManyToManyField('Image', blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)  # Add this line
 
     def __str__(self):
         return self.luggage_name

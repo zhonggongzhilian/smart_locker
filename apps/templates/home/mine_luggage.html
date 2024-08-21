@@ -1,0 +1,84 @@
+<!-- home/user_luggage.html -->
+{% extends 'layouts/base.html' %}
+
+{% block title %} 我的寄存信息 {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style>
+  /* 页面背景的天蓝色到白色的渐变 */
+  body {
+    background: linear-gradient(to bottom, #87ceeb, #ffffff);
+  }
+
+  .luggage-card {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .luggage-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    object-fit: cover;
+  }
+
+  .luggage-info {
+    flex: 1;
+  }
+
+  .luggage-info h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #343a40;
+  }
+
+  .luggage-info p {
+    margin: 5px 0;
+    color: #6c757d;
+  }
+
+  .luggage-info .btn {
+    margin-top: 15px;
+  }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<!-- Page content -->
+<div class="container-fluid">
+    <!-- 用户寄存信息卡片 -->
+    {% for luggage in luggage_list %}
+    <div class="luggage-card">
+        <!-- 显示图片 -->
+        {% if luggage.images.all %}
+            <img src="/media/{{ luggage.images.first.image }}" alt="Luggage Image">
+        {% else %}
+            <img src="/media/default_image.jpg" alt="Default Image">
+        {% endif %}
+        <!-- 显示文字信息 -->
+        <div class="luggage-info">
+            <h3>{{ luggage.luggage_name }}</h3>
+            <p>规格: {{ luggage.luggage_size }}</p>
+            <p>描述: {{ luggage.luggage_description }}</p>
+            <p>寄存时间: {{ luggage.storage_time }}</p>
+        </div>
+    </div>
+    {% empty %}
+    <p>您尚未寄存任何物品。</p>
+    {% endfor %}
+</div>
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+<script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+{% endblock javascripts %}

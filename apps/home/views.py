@@ -34,7 +34,7 @@ def home(request):
 @login_required(login_url="/login/")
 def storage(request):
     if request.method == 'POST':
-        form = LuggageForm(request.POST, request.FILES)
+        form = LuggageForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             luggage = form.save(commit=False)  # 先保存行李对象，不保存 ManyToManyField
 
@@ -55,7 +55,7 @@ def storage(request):
 
             return redirect('storage_success')  # 确保这里的名称与 urls.py 中的名称匹配
     else:
-        form = LuggageForm()
+        form = LuggageForm(user=request.user)
 
     return render(request, 'home/storage.html', {'form': form})
 
@@ -70,6 +70,12 @@ def mine(request):
     context = {'segment': 'index'}
     html_template = loader.get_template('home/mine.html')
     return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def mine_luggage(request):
+    luggage_list = Luggage.objects.filter(user=request.user)
+    return render(request, 'home/mine_luggage.html', {'luggage_list': luggage_list})
 
 
 @login_required(login_url="/login/")

@@ -14,6 +14,7 @@ urlpatterns = [
                   path('storage', views.storage, name='storage'),
                   path('storage_success', views.storage_success, name='storage_success'),
                   path('mine', views.mine, name='mine'),
+                  path('mine_luggage', views.mine_luggage, name='mine_luggage'),
                   # Matches any html file
                   re_path(r'^.*\.*', views.pages, name='pages'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
